@@ -1,0 +1,75 @@
+### ── Codelab 02 — Pruebas de Actuator y datos de prueba ──────────────
+
+### 1. Verificar las 8 regiones cargadas
+GET http://localhost:8080/api/v1/cliente-service/clientes/regiones
+Accept: application/json
+
+###
+
+### 2. Verificar que hay 12 clientes cargados
+GET http://localhost:8080/api/v1/cliente-service/clientes
+Accept: application/json
+
+###
+
+### 3. Health check — debe mostrar db.status: "UP"
+GET http://localhost:8081/actuator/health
+Accept: application/json
+
+###
+
+### 4. Info de la aplicación
+GET http://localhost:8081/actuator/info
+Accept: application/json
+
+###
+
+### 5. Lista de métricas disponibles
+GET http://localhost:8081/actuator/metrics
+Accept: application/json
+
+###
+
+### 6. Memoria JVM usada
+GET http://localhost:8081/actuator/metrics/jvm.memory.used
+Accept: application/json
+
+###
+
+### 7. Conexiones activas de HikariCP (debe ser 0 en reposo)
+GET http://localhost:8081/actuator/metrics/hikaricp.connections.active
+Accept: application/json
+
+###
+
+### 8. Conexiones inactivas de HikariCP (debe ser 2-10 en reposo)
+GET http://localhost:8081/actuator/metrics/hikaricp.connections.idle
+Accept: application/json
+
+###
+
+### 9. Todos los endpoints REST registrados
+GET http://localhost:8081/actuator/mappings
+Accept: application/json
+
+###
+
+### 10. Crear un cliente nuevo (se suma a los 12 de import.sql)
+POST http://localhost:8080/api/v1/cliente-service/clientes
+Content-Type: application/json
+
+{
+  "nombre": "Donald",
+  "apellido": "Knuth",
+  "email": "knuth@stanford.edu",
+  "foto": "knuth.jpg",
+  "region": { "id": 3 }
+}
+
+###
+
+### 11. Verificar que ahora hay 13 clientes
+GET http://localhost:8080/api/v1/cliente-service/clientes
+Accept: application/json
+
+###
